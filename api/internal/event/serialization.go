@@ -2,10 +2,11 @@ package event
 
 import (
 	"encoding/json/v2"
-	"errors"
+
+	"github.com/carafie/chat/api/pkg/errcode"
 )
 
-var ErrInvalid = errors.New("event is invalid")
+var ErrInvalid = errcode.New("EVENT_INVALID", "event is invalid")
 
 func Serialize(v any) ([]byte, error) {
 	raw, err := json.Marshal(v)
