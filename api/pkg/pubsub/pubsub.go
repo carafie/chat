@@ -9,7 +9,7 @@ type Client struct {
 }
 
 type Subscription struct {
-	topic    Topic
+	Topic    Topic
 	messages chan<- Message
 }
 
@@ -45,7 +45,7 @@ func (c *Client) Subscribe(topic Topic, messages chan<- Message) Subscription {
 	defer c.mu.Unlock()
 
 	subscription := Subscription{
-		topic:    topic,
+		Topic:    topic,
 		messages: messages,
 	}
 	if c.topics[topic] == nil {
@@ -61,9 +61,9 @@ func (c *Client) Unsubscribe(subscription Subscription) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	subscriptions := c.topics[subscription.topic]
+	subscriptions := c.topics[subscription.Topic]
 	delete(subscriptions, subscription)
 	if len(subscriptions) == 0 && subscriptions != nil {
-		delete(c.topics, subscription.topic)
+		delete(c.topics, subscription.Topic)
 	}
 }
