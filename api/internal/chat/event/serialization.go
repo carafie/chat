@@ -17,7 +17,7 @@ func Serialize(v any) ([]byte, error) {
 
 func Deserialize[T any](raw []byte) (T, error) {
 	var v T
-	if err := json.Unmarshal(raw, &v); err != nil {
+	if err := json.Unmarshal(raw, &v, json.RejectUnknownMembers(true)); err != nil {
 		return v, ErrInvalid
 	}
 	return v, nil
